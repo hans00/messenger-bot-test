@@ -34,15 +34,16 @@ def fb_receive_message():
 				recipient_id = message['sender']['id']
 				bot.typing(recipient_id)
 				if message['message'].get('text'):
+					bot.send_text(recipient_id, "Hello")
 					msg = message['message']['text']
-					bot.send_buttons(
-						recipient_id,
-						"Choose service:",
-						[
-							ActionButton(ButtonType.POSTBACK, "Email", Intent.EMAIL),
-							ActionButton(ButtonType.POSTBACK, "Email2", Intent.EMAIL)
-						]
-					)
+					# bot.send_buttons(
+					# 	recipient_id,
+					# 	"Choose service:",
+					# 	[
+					# 		ActionButton(ButtonType.POSTBACK, "Email", Intent.EMAIL),
+					# 		ActionButton(ButtonType.POSTBACK, "Email2", Intent.EMAIL)
+					# 	]
+					# )
 	return ''
 
 if __name__ == '__main__':
