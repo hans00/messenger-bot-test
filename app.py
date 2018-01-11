@@ -2,14 +2,15 @@ import os
 import logging
 import json
 from flask import Flask, request
-from pymessager.message import Messager, QuickReply, ActionButton, GenericElement
+# from pymessager.message import Messager, QuickReply, ActionButton, GenericElement
+from pymessenger.bot import Bot
 
 TOKEN = os.environ.get('TOKEN')
 VERIFY_TOKEN = os.environ.get('VERIFY_TOKEN')
 FB_WEBHOOK_PATH = os.environ.get('FB_WEBHOOK_PATH', '/fbapi')
 
 app = Flask(__name__)
-bot = Messager(TOKEN)
+bot = Bot(TOKEN)
 
 if FB_WEBHOOK_PATH != '/':
 	@app.route('/')
@@ -34,7 +35,7 @@ def fb_receive_message():
 				recipient_id = message['sender']['id']
 				bot.typing(recipient_id)
 				if message['message'].get('text'):
-					bot.send_text(recipient_id, "Hello")
+					bot.send_text_message(recipient_id, "Hello")
 					msg = message['message']['text']
 					# bot.send_buttons(
 					# 	recipient_id,
@@ -47,8 +48,8 @@ def fb_receive_message():
 	return ''
 
 if __name__ == '__main__':
-	bot.set_greeting_text("Hi, may I help you?")
-	bot.set_get_started_button_payload("Get Start") 
+	# bot.set_greeting_text("Hi, may I help you?")
+	# bot.set_get_started_button_payload("Get Start") 
 	app.run(
 		host='0.0.0.0',
 		debug=True,
