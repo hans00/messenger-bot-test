@@ -63,10 +63,12 @@ def set_profile(payload):
 
 if __name__ == '__main__':
 	print(set_profile({
-			"setting_type": "greeting",
-			"greeting": {
-				"text": "{{user_full_name}} 安安"
-			}
+			"greeting": [
+				{
+					"locale":"default",
+					"text": "{{user_full_name}} 安安"
+				}
+			]
 		}))
 	print(set_profile({
 			"get_started": {"payload": "start"}
@@ -75,7 +77,7 @@ if __name__ == '__main__':
 			"persistent_menu":[
 				{
 					"locale":"default",
-					"composer_input_disabled": True,
+					"composer_input_disabled": False,
 					"call_to_actions":[
 						{
 							"title":"My Account",
@@ -88,8 +90,8 @@ if __name__ == '__main__':
 								},
 								{
 									"type":"web_url",
-									"title":"Latest News",
-									"url":"https://www.messenger.com/",
+									"title":"Web",
+									"url":"https://itsrv.tw/",
 									"webview_height_ratio":"full"
 								}
 							]
