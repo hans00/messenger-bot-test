@@ -32,6 +32,7 @@ def fb_receive_message():
 		for message in entry['messaging']:
 			if message.get('message'):
 				recipient_id = message['sender']['id']
+				bot.typing(recipient_id)
 				if message['message'].get('text'):
 					msg = message['message']['text']
 					bot.send_buttons(
