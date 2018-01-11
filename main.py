@@ -11,6 +11,11 @@ FB_WEBHOOK_PATH = os.environ.get('FB_WEBHOOK_PATH', '/fbapi')
 app = Flask(__name__)
 bot = Bot(TOKEN)
 
+if FB_WEBHOOK_PATH != '/':
+	@app.route('/')
+	def root():
+		return 'Hello World!'
+
 @app.route(FB_WEBHOOK_PATH, methods=["GET"])
 def fb_webhook():
 	verify_token = request.args.get('hub.verify_token')
