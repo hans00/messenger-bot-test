@@ -17,7 +17,7 @@ if FB_WEBHOOK_PATH != '/':
 	def root():
 		return 'Hello World!'
 
-@app.route(FB_WEBHOOK_PATH, methods=["GET"])
+@app.route(FB_WEBHOOK_PATH, methods=['GET'])
 def fb_webhook_challenge():
 	verify_token = request.args.get('hub.verify_token')
 	if verify_token == VERIFY_TOKEN:
@@ -34,22 +34,29 @@ def fb_receive_message():
 			recipient_id = message['sender']['id']
 			if message.get('message'):
 				if message['message'].get('text'):
-					msg = message['message']['text']
-					bot.send_button_message(
-						recipient_id,
-						"Choose service:",
-						[
-							dict(type='postback', title="Test 1", payload="1"),
-							dict(type='postback', title="Test 2", payload="2"),
-							dict(type='postback', title="Test 3", payload="3")
-						]
-					)
+					# msg = message['message']['text']
+					# bot.send_button_message(
+					# 	recipient_id,
+					# 	"Choose service:",
+					# 	[
+					# 		dict(type='postback', title="Test 1", payload="1"),
+					# 		dict(type='postback', title="Test 2", payload="2"),
+					# 		dict(type='postback', title="Test 3", payload="3")
+					# 	]
+					# )
+					bot.send_text_message(recipient_id, "I don't kow what it is.\nPlease select on the below.")
 			if message.get('postback'):
 				payload = message['postback']['payload']
-				bot.send_text_message(
-					recipient_id,
-					"Test - " + payload
-					)
+				if payload == 'start':
+					bot.send_text_message(
+						recipient_id,
+						"Hello, please select."
+						)
+				else:
+					bot.send_text_message(
+						recipient_id,
+						"Please input your question about "+payload.split('_')[1]
+						)
 	return ''
 
 def set_profile(payload):
@@ -66,7 +73,7 @@ if __name__ == '__main__':
 			"greeting": [
 				{
 					"locale":"default",
-					"text": "{{user_full_name}} 安安"
+					"text": "Hello {{user_full_name}}, may I help you?"
 				}
 			]
 		}))
@@ -80,22 +87,48 @@ if __name__ == '__main__':
 					"composer_input_disabled": False,
 					"call_to_actions":[
 						{
-							"title":"My Account",
+							"title":"Create company",
 							"type":"nested",
 							"call_to_actions":[
 								{
-									"title":"Pay Bill",
+									"title":"Registerition",
 									"type":"postback",
-									"payload":"PAYBILL_PAYLOAD"
+									"payload":"CTRATE_REG"
 								},
 								{
-									"type":"web_url",
-									"title":"Web",
-									"url":"https://itsrv.tw/",
-									"webview_height_ratio":"full"
+									"title":"LOGO",
+									"type":"postback",
+									"payload":"CTRATE_LOGO"
+								},
+								{
+									"title":"Copyright",
+									"type":"postback",
+									"payload":"CTRATE_CR"
+								},
+								{
+									"title":"Knowledge Trade",
+									"type":"postback",
+									"payload":"CTRATE_KT"
 								}
 							]
-						}
+						},
+						{
+							"title":"Manage company",
+							"type":"nested",
+							"call_to_actions":[
+								{
+									"title":"Tax",
+									"type":"postback",
+									"payload":"MANAGE_TAX"
+								}
+							]
+						},
+						{
+							"type":"web_url",
+							"title":"About Us",
+							"url":"https://itsrv.tw/",
+							"webview_height_ratio":"full"
+						}	
 					]
 				}
 			]
