@@ -21,6 +21,8 @@ def fb_webhook():
 	verify_token = request.args.get('hub.verify_token')
 	if verify_token == CHALLENGE_CODE:
 		return request.args.get('hub.challenge')
+	else:
+		return ''
 
 @app.route(FB_WEBHOOK_PATH, methods=['POST'])
 def fb_receive_message():
