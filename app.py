@@ -34,49 +34,49 @@ def fb_receive_message():
 				recipient_id = message['sender']['id']
 				if message['message'].get('text'):
 					msg = message['message']['text']
-					# bot.send_button_message(
-					# 	recipient_id,
-					# 	"Choose service:",
-					# 	[
-					# 		dict(type='postback', title="Test 1", payload="1"),
-					# 		dict(type='postback', title="Test 2", payload="2"),
-					# 		dict(type='postback', title="Test 3", payload="3")
-					# 	]
-					# )
-					bot.send_text_message(
+					bot.send_button_message(
 						recipient_id,
-						msg
-						)
+						"Choose service:",
+						[
+							dict(type='postback', title="Test 1", payload="1"),
+							dict(type='postback', title="Test 2", payload="2"),
+							dict(type='postback', title="Test 3", payload="3")
+						]
+					)
+					# bot.send_text_message(
+					# 	recipient_id,
+					# 	msg
+					# 	)
 	return ''
 
 if __name__ == '__main__':
-	# bot.send_raw({
-	# 	"persistent_menu":[
-	# 		{
-	# 			"locale":"default",
-	# 			"composer_input_disabled": True,
-	# 			"call_to_actions":[
-	# 				{
-	# 					"title":"My Account",
-	# 					"type":"nested",
-	# 					"call_to_actions":[
-	# 						{
-	# 							"title":"Pay Bill",
-	# 							"type":"postback",
-	# 							"payload":"PAYBILL_PAYLOAD"
-	# 						},
-	# 						{
-	# 							"type":"web_url",
-	# 							"title":"Latest News",
-	# 							"url":"https://www.messenger.com/",
-	# 							"webview_height_ratio":"full"
-	# 						}
-	# 					]
-	# 				}
-	# 			]
-	# 		}
-	# 	]
-	# })
+	bot.send_raw({
+		"persistent_menu":[
+			{
+				"locale":"default",
+				"composer_input_disabled": True,
+				"call_to_actions":[
+					{
+						"title":"My Account",
+						"type":"nested",
+						"call_to_actions":[
+							{
+								"title":"Pay Bill",
+								"type":"postback",
+								"payload":"PAYBILL_PAYLOAD"
+							},
+							{
+								"type":"web_url",
+								"title":"Latest News",
+								"url":"https://www.messenger.com/",
+								"webview_height_ratio":"full"
+							}
+						]
+					}
+				]
+			}
+		]
+	})
 	app.run(
 		host='0.0.0.0',
 		debug=True,
