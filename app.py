@@ -18,6 +18,7 @@ if FB_WEBHOOK_PATH != '/':
 
 @app.route(FB_WEBHOOK_PATH, methods=["GET"])
 def fb_webhook():
+	logging.debug(request.args)
 	verify_token = request.args.get('hub.verify_token')
 	if verify_token == CHALLENGE_CODE:
 		return request.args.get('hub.challenge')
