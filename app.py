@@ -51,17 +51,26 @@ def fb_receive_message():
 					)
 	return ''
 
+def set_profile(payload):
+	global TOKEN
+	url = 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+TOKEN
+	response = request.post(
+			url,
+			json=payload
+		)
+	return response.json()
+
 if __name__ == '__main__':
-	print(bot.send_raw({
+	print(set_profile({
 			"setting_type": "greeting",
 			"greeting": {
 				"text": "{{user_full_name}} 安安"
 			}
 		}))
-	print(bot.send_raw({
+	print(set_profile({
 			"get_started": {"payload": "start"}
 		}))
-	print(bot.send_raw({
+	print(set_profile({
 			"persistent_menu":[
 				{
 					"locale":"default",
