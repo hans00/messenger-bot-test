@@ -33,15 +33,19 @@ def fb_receive_message():
 			if message.get('message'):
 				recipient_id = message['sender']['id']
 				msg = message['message']['text']
-				bot.send_button_message(
+				# bot.send_button_message(
+				# 	recipient_id,
+				# 	"Choose service:",
+				# 	[
+				# 		dict(type='postback', title="Test 1", payload="1"),
+				# 		dict(type='postback', title="Test 2", payload="2"),
+				# 		dict(type='postback', title="Test 3", payload="3")
+				# 	]
+				# )
+				bot.send_text_message(
 					recipient_id,
-					"Choose service:",
-					[
-						dict(type='postback', title="Test 1", payload="1"),
-						dict(type='postback', title="Test 2", payload="2"),
-						dict(type='postback', title="Test 3", payload="3")
-					]
-				)
+					msg
+					)
 	return ''
 
 if __name__ == '__main__':
