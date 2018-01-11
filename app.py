@@ -2,7 +2,6 @@ import os
 import logging
 import json
 from flask import Flask, request
-# from pymessager.message import Messager, QuickReply, ActionButton, GenericElement
 from pymessenger.bot import Bot
 
 TOKEN = os.environ.get('TOKEN')
@@ -34,16 +33,15 @@ def fb_receive_message():
 			if message.get('message'):
 				recipient_id = message['sender']['id']
 				msg = message['message']['text']
-				# bot.typing(recipient_id)
-				bot.send_text_message(recipient_id, "Hello")
-				# bot.send_buttons(
-				# 	recipient_id,
-				# 	"Choose service:",
-				# 	[
-				# 		ActionButton(ButtonType.POSTBACK, "Email", Intent.EMAIL),
-				# 		ActionButton(ButtonType.POSTBACK, "Email2", Intent.EMAIL)
-				# 	]
-				# )
+				bot.send_button_message(
+					recipient_id,
+					"Choose service:",
+					[
+						dict(type='postback', title="Test 1", payload="1"),
+						dict(type='postback', title="Test 2", payload="2"),
+						dict(type='postback', title="Test 3", payload="3")
+					]
+				)
 	return ''
 
 if __name__ == '__main__':
