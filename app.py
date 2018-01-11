@@ -31,7 +31,7 @@ def fb_receive_message():
 	for entry in message_entries:
 		for message in entry['messaging']:
 			if message.get('message'):
-				bot.send_text_message(message['sender']['id'], message['message']['text'])
+				bot.send_text_message(message['sender']['id'], request.data.decode('utf8'))
 	return ''
 
 if __name__ == '__main__':
