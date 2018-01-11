@@ -52,36 +52,42 @@ def fb_receive_message():
 	return ''
 
 if __name__ == '__main__':
-	bot.send_raw({
-		"get_started": {"payload": "start"}
-	})
-	bot.send_raw({
-		"persistent_menu":[
-			{
-				"locale":"default",
-				"composer_input_disabled": True,
-				"call_to_actions":[
-					{
-						"title":"My Account",
-						"type":"nested",
-						"call_to_actions":[
-							{
-								"title":"Pay Bill",
-								"type":"postback",
-								"payload":"PAYBILL_PAYLOAD"
-							},
-							{
-								"type":"web_url",
-								"title":"Latest News",
-								"url":"https://www.messenger.com/",
-								"webview_height_ratio":"full"
-							}
-						]
-					}
-				]
+	print(bot.send_raw({
+			"setting_type": "greeting",
+			"greeting": {
+				"text": "{{user_full_name}} 安安"
 			}
-		]
-	})
+		}))
+	print(bot.send_raw({
+			"get_started": {"payload": "start"}
+		}))
+	print(bot.send_raw({
+			"persistent_menu":[
+				{
+					"locale":"default",
+					"composer_input_disabled": True,
+					"call_to_actions":[
+						{
+							"title":"My Account",
+							"type":"nested",
+							"call_to_actions":[
+								{
+									"title":"Pay Bill",
+									"type":"postback",
+									"payload":"PAYBILL_PAYLOAD"
+								},
+								{
+									"type":"web_url",
+									"title":"Latest News",
+									"url":"https://www.messenger.com/",
+									"webview_height_ratio":"full"
+								}
+							]
+						}
+					]
+				}
+			]
+		}))
 	app.run(
 		host='0.0.0.0',
 		debug=True,
