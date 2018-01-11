@@ -30,8 +30,8 @@ def fb_receive_message():
 	print(request.data.decode('utf8'))
 	for entry in message_entries:
 		for message in entry['messaging']:
+			recipient_id = message['sender']['id']
 			if message.get('message'):
-				recipient_id = message['sender']['id']
 				if message['message'].get('text'):
 					msg = message['message']['text']
 					bot.send_button_message(
@@ -43,15 +43,17 @@ def fb_receive_message():
 							dict(type='postback', title="Test 3", payload="3")
 						]
 					)
-					# bot.send_text_message(
-					# 	recipient_id,
-					# 	msg
-					# 	)
+			if message.get('postback'):
+				payload = message['postback']['payload']
+				bot.send_text_message(
+					recipient_id,
+					"Test - " + payload
+					)
 	return ''
 
 if __name__ == '__main__':
 	bot.send_raw({
-		"get_started": {"payload": "Get Start"}
+		"get_started": {"payload": "start"}
 	})
 	bot.send_raw({
 		"persistent_menu":[
