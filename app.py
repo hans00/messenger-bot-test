@@ -1,8 +1,8 @@
 import os
 import logging
 import json
-from flask import Flask, request
-import requests
+from flask import Flask, requestuest
+import requestuests
 from pymessenger.bot import Bot
 
 TOKEN = os.environ.get('TOKEN')
@@ -19,16 +19,16 @@ if FB_WEBHOOK_PATH != '/':
 
 @app.route(FB_WEBHOOK_PATH, methods=["GET"])
 def fb_webhook_challenge():
-	verify_token = req.args.get('hub.verify_token')
+	verify_token = request.args.get('hub.verify_token')
 	if verify_token == VERIFY_TOKEN:
-		return req.args.get('hub.challenge')
+		return request.args.get('hub.challenge')
 	else:
 		return ''
 
 @app.route(FB_WEBHOOK_PATH, methods=['POST'])
 def fb_receive_message():
-	message_entries = json.loads(req.data.decode('utf8'))['entry']
-	print(req.data.decode('utf8'))
+	message_entries = json.loads(request.data.decode('utf8'))['entry']
+	print(request.data.decode('utf8'))
 	for entry in message_entries:
 		for message in entry['messaging']:
 			recipient_id = message['sender']['id']
@@ -55,7 +55,7 @@ def fb_receive_message():
 def set_profile(payload):
 	global TOKEN
 	url = 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+TOKEN
-	response = requests.post(
+	response = requestuests.post(
 			url,
 			json=payload
 		)
