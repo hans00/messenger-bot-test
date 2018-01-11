@@ -1,8 +1,8 @@
 import os
 import logging
 import json
-from flask import Flask, requestuest
-import requestuests
+from flask import Flask, request
+import requests
 from pymessenger.bot import Bot
 
 TOKEN = os.environ.get('TOKEN')
@@ -55,7 +55,7 @@ def fb_receive_message():
 def set_profile(payload):
 	global TOKEN
 	url = 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+TOKEN
-	response = requestuests.post(
+	response = requests.post(
 			url,
 			json=payload
 		)
