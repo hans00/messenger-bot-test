@@ -51,6 +51,9 @@ def fb_receive_message():
 
 if __name__ == '__main__':
 	bot.send_raw({
+		"get_started": {"payload": "Get Start"}
+	})
+	bot.send_raw({
 		"persistent_menu":[
 			{
 				"locale":"default",
