@@ -17,7 +17,7 @@ if FB_WEBHOOK_PATH != '/':
 		return 'Hello World!'
 
 @app.route(FB_WEBHOOK_PATH, methods=["GET"])
-def fb_webhook():
+def fb_webhook_challenge():
 	verify_token = request.args.get('hub.verify_token')
 	if verify_token == VERIFY_TOKEN:
 		return request.args.get('hub.challenge')
@@ -27,11 +27,10 @@ def fb_webhook():
 @app.route(FB_WEBHOOK_PATH, methods=['POST'])
 def fb_receive_message():
 	message_entries = json.loads(request.data.decode('utf8'))['entry']
-	print(message_entries)
+	print(request.data.decode('utf8'))
 	for entry in message_entries:
 		for message in entry['messaging']:
 			if message.get('message'):
-				print("{sender[id]} says {message[text]}".format(**message))
 				bot.send_text_message(message['sender']['id'], message['message']['text'])
 	return ''
 
