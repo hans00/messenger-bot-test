@@ -49,34 +49,33 @@ def fb_receive_message():
 	return ''
 
 if __name__ == '__main__':
-	# bot.set_greeting_text("Hi, may I help you?")
-	bot.send_raw({
-		"persistent_menu":[
-			{
-				"locale":"default",
-				"composer_input_disabled": True,
-				"call_to_actions":[
-					{
-						"title":"My Account",
-						"type":"nested",
-						"call_to_actions":[
-							{
-								"title":"Pay Bill",
-								"type":"postback",
-								"payload":"PAYBILL_PAYLOAD"
-							},
-							{
-								"type":"web_url",
-								"title":"Latest News",
-								"url":"https://www.messenger.com/",
-								"webview_height_ratio":"full"
-							}
-						]
-					}
-				]
-			}
-		]
-	})
+	# bot.send_raw({
+	# 	"persistent_menu":[
+	# 		{
+	# 			"locale":"default",
+	# 			"composer_input_disabled": True,
+	# 			"call_to_actions":[
+	# 				{
+	# 					"title":"My Account",
+	# 					"type":"nested",
+	# 					"call_to_actions":[
+	# 						{
+	# 							"title":"Pay Bill",
+	# 							"type":"postback",
+	# 							"payload":"PAYBILL_PAYLOAD"
+	# 						},
+	# 						{
+	# 							"type":"web_url",
+	# 							"title":"Latest News",
+	# 							"url":"https://www.messenger.com/",
+	# 							"webview_height_ratio":"full"
+	# 						}
+	# 					]
+	# 				}
+	# 			]
+	# 		}
+	# 	]
+	# })
 	app.run(
 		host='0.0.0.0',
 		debug=True,
