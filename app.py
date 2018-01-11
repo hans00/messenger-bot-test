@@ -5,7 +5,7 @@ from flask import Flask, request
 from pymessenger.bot import Bot
 
 TOKEN = os.environ.get('TOKEN')
-CHALLENGE_CODE = os.environ.get('CHALLENGE_CODE')
+VERIFY_TOKEN = os.environ.get('VERIFY_TOKEN')
 FB_WEBHOOK_PATH = os.environ.get('FB_WEBHOOK_PATH', '/fbapi')
 
 app = Flask(__name__)
@@ -19,8 +19,9 @@ if FB_WEBHOOK_PATH != '/':
 @app.route(FB_WEBHOOK_PATH, methods=["GET"])
 def fb_webhook():
 	logging.info(request.args)
+	logging.info(VERIFY_TOKEN)
 	verify_token = request.args.get('hub.verify_token')
-	if verify_token == CHALLENGE_CODE:
+	if verify_token == VERIFY_TOKEN:
 		return request.args.get('hub.challenge')
 	else:
 		return ''
